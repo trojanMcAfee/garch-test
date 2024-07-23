@@ -5,7 +5,6 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import scipy.optimize as spop
 
-
 #specifying the sample
 ticker = '^GSPC'
 start = '2015-12-31'
@@ -59,7 +58,7 @@ conditional = np.zeros(len(returns))
 conditional[0] =  long_run
 for t in range(1,len(returns)):
     conditional[t] = (omega + alpha*resid[t-1]**2 + beta*conditional[t-1]**2)**(1/2)
-
+    
 #printing optimal parameters
 print('GARCH model parameters')
 print('')
@@ -69,30 +68,40 @@ print('alpha '+str(round(alpha, 4)))
 print('beta '+str(round(beta, 4)))
 print('long-run volatility '+str(round(long_run, 4)))
 print('log-likelihood '+str(round(log_likelihood, 4)))
-#visualising the results
+
+# visualising the results
 plt.figure(1)
 plt.rc('xtick', labelsize = 10)
-plt.plot(prices.index[1:],realised)
-plt.plot(prices.index[1:],conditional)
+plt.plot(prices.index[1:],realised, label='Realised Volatility')
+plt.plot(prices.index[1:],conditional, label='Conditional Volatility')
+plt.legend()
 plt.show()
 
+# Projections with random shocks
+days_ahead = 15
+num_simulations = 100  # Number of simulations to average out
 
+projection_matrix = np.zeros((num_simulations, days_ahead))
 
+for sim in range(num_simulations):
+    # Simulate future returns and volatility
+    projections = np.zeros(days_ahead)
+    projections[0] = conditional[-1]  # starting from the last conditional volatility value
+    shocks = np.random.normal(0, 1, days_ahead)  # Generate random shocks
 
-# # Projections
-# days_ahead = 15
-# projections = np.zeros(days_ahead)
-# projections[0] = conditional[-1]  # starting from the last conditional volatility value
+    for t in range(1, days_ahead):
+        projections[t] = (omega + alpha * (shocks[t-1]**2) + beta * projections[t-1]**2)**(1/2)
+    
+    projection_matrix[sim] = projections
 
-# for t in range(1, days_ahead):
-#     projections[t] = (omega + alpha * realised[-1]**2 + beta * projections[t-1]**2)**(1/2)
-#     realised = np.append(realised, 0)  # Adding a placeholder for the next day
+# Average projections
+mean_projections = projection_matrix.mean(axis=0)
 
-# # Plotting the projections
-# plt.figure(2)
-# plt.plot(range(1, days_ahead + 1), projections, label='Projections')
-# plt.xlabel('Days')
-# plt.ylabel('Volatility')
-# plt.title('GARCH Volatility Projections')
-# plt.legend()
-# plt.show()
+# Plotting the average projections with randomness
+plt.figure(2)
+plt.plot(range(1, days_ahead + 1), mean_projections, label='Mean Projections with Random Shocks')
+plt.xlabel('Days')
+plt.ylabel('Volatility')
+plt.title('GARCH Volatility Projections with Random Shocks')
+plt.legend()
+plt.show()
