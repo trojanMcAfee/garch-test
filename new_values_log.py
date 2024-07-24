@@ -85,7 +85,7 @@ for t in range(1, len(new_returns)):
     new_conditional[t] = (omega + alpha * (new_returns[t-1] - mu) ** 2 + beta * new_conditional[t-1] ** 2) ** (1 / 2)
 
 # Calculating the new realized volatilities
-new_realised = abs(new_returns - mu)
+new_realised = abs(new_returns)
 
 # Diagnostic prints
 print("Old Realized Volatility:")
