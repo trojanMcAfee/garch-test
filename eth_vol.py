@@ -7,9 +7,9 @@ import scipy.optimize as spop
 
 
 #specifying the sample
-ticker = '^GSPC'
-start = '2015-12-31'
-end = '2021-06-25'
+ticker = 'ETH-USD'
+start = '2020-01-01'
+end = '2024-07-22'
 
 #downloading data
 prices = yf.download(ticker, start, end)['Close']
@@ -60,7 +60,7 @@ conditional[0] =  long_run
 for t in range(1,len(returns)):
     conditional[t] = (omega + alpha*resid[t-1]**2 + beta*conditional[t-1]**2)**(1/2)
 
-# print(conditional)
+# print(conditional[-1])
 
 #printing optimal parameters
 print('GARCH model parameters')
@@ -78,24 +78,3 @@ plt.rc('xtick', labelsize = 10)
 plt.plot(prices.index[1:],realised)
 plt.plot(prices.index[1:],conditional)
 plt.show()
-
-
-
-
-# # Projections
-# days_ahead = 15
-# projections = np.zeros(days_ahead)
-# projections[0] = conditional[-1]  # starting from the last conditional volatility value
-
-# for t in range(1, days_ahead):
-#     projections[t] = (omega + alpha * realised[-1]**2 + beta * projections[t-1]**2)**(1/2)
-#     realised = np.append(realised, 0)  # Adding a placeholder for the next day
-
-# # Plotting the projections
-# plt.figure(2)
-# plt.plot(range(1, days_ahead + 1), projections, label='Projections')
-# plt.xlabel('Days')
-# plt.ylabel('Volatility')
-# plt.title('GARCH Volatility Projections')
-# plt.legend()
-# plt.show()
