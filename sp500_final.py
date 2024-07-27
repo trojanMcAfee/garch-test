@@ -63,21 +63,21 @@ for t in range(1,len(returns)):
 # print(conditional)
 
 #printing optimal parameters
-print('GARCH model parameters')
-print('')
-print('mu '+str(round(mu, 6)))
-print('omega '+str(round(omega, 6)))
-print('alpha '+str(round(alpha, 4)))
-print('beta '+str(round(beta, 4)))
-print('long-run volatility '+str(round(long_run, 4)))
-print('log-likelihood '+str(round(log_likelihood, 4)))
+# print('GARCH model parameters')
+# print('')
+# print('mu '+str(round(mu, 6)))
+# print('omega '+str(round(omega, 6)))
+# print('alpha '+str(round(alpha, 4)))
+# print('beta '+str(round(beta, 4)))
+# print('long-run volatility '+str(round(long_run, 4)))
+# print('log-likelihood '+str(round(log_likelihood, 4)))
 
-#visualising the results
-plt.figure(1)
-plt.rc('xtick', labelsize = 10)
-plt.plot(prices.index[1:],realised)
-plt.plot(prices.index[1:],conditional)
-plt.show()
+# #visualising the results
+# plt.figure(1)
+# plt.rc('xtick', labelsize = 10)
+# plt.plot(prices.index[1:],realised)
+# plt.plot(prices.index[1:],conditional)
+# plt.show()
 
 
 

@@ -1,6 +1,6 @@
 #importing packages
 import numpy as np
-import pandas as pd
+import pandas as pd #<---- not used
 import yfinance as yf
 import matplotlib.pyplot as plt
 import scipy.optimize as spop
@@ -60,7 +60,11 @@ conditional[0] =  long_run
 for t in range(1,len(returns)):
     conditional[t] = (omega + alpha*resid[t-1]**2 + beta*conditional[t-1]**2)**(1/2)
 
-# print(conditional[-1])
+print(conditional[-1])
+print('last conditional vol ^^^')
+print(resid[-1])
+print('resid ^^^')
+print('')
 
 #printing optimal parameters
 print('GARCH model parameters')
@@ -73,8 +77,8 @@ print('long-run volatility '+str(round(long_run, 4)))
 print('log-likelihood '+str(round(log_likelihood, 4)))
 
 #visualising the results
-plt.figure(1)
-plt.rc('xtick', labelsize = 10)
-plt.plot(prices.index[1:],realised)
-plt.plot(prices.index[1:],conditional)
-plt.show()
+# plt.figure(1)
+# plt.rc('xtick', labelsize = 10)
+# plt.plot(prices.index[1:],realised)
+# plt.plot(prices.index[1:],conditional)
+# plt.show()

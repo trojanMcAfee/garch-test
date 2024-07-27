@@ -73,19 +73,21 @@ conditional[0] =  long_run
 for t in range(1,len(returns)):
     conditional[t] = (omega + alpha*resid[t-1]**2 + beta*conditional[t-1]**2)**(1/2)
 
-#printing optimal parameters
-print('GARCH model parameters')
-print('')
-print('mu '+str(round(mu, 6)))
-print('omega '+str(round(omega, 6)))
-print('alpha '+str(round(alpha, 4)))
-print('beta '+str(round(beta, 4)))
-print('long-run volatility '+str(round(long_run, 4)))
-print('log-likelihood '+str(round(log_likelihood, 4)))
+print(conditional[-1])
 
-#visualising the results
-plt.figure(1)
-plt.rc('xtick', labelsize = 10)
-plt.plot(prices.index[1:],realised)
-plt.plot(prices.index[1:],conditional)
-plt.show()
+# #printing optimal parameters
+# print('GARCH model parameters')
+# print('')
+# print('mu '+str(round(mu, 6)))
+# print('omega '+str(round(omega, 6)))
+# print('alpha '+str(round(alpha, 4)))
+# print('beta '+str(round(beta, 4)))
+# print('long-run volatility '+str(round(long_run, 4)))
+# print('log-likelihood '+str(round(log_likelihood, 4)))
+
+# #visualising the results
+# plt.figure(1)
+# plt.rc('xtick', labelsize = 10)
+# plt.plot(prices.index[1:],realised)
+# plt.plot(prices.index[1:],conditional)
+# plt.show()
