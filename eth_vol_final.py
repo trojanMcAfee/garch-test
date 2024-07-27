@@ -1,9 +1,10 @@
 #importing packages
 import numpy as np
-import pandas as pd #<---- not used
+# import pandas as pd #<---- not used
 import yfinance as yf
 import matplotlib.pyplot as plt
 import scipy.optimize as spop
+import json
 
 
 #specifying the sample
@@ -64,7 +65,22 @@ print(conditional[-1])
 print('last conditional vol ^^^')
 print(resid[-1])
 print('resid ^^^')
+print('mu***** ', mu)
+# print('mu multiplied ', mu * 10 ** )
 print('')
+
+garch_params = {
+    "last_conditional": conditional[-1] * 10 ** 18,
+    "last_residual": resid[-1] * 10 ** 18,
+    "mu": mu * 10 ** 18,
+    "omega": omega * 10 ** 18,
+    "alpha": alpha * 10 ** 18,
+    "beta": beta * 10 ** 18
+}
+
+with open('garch_params.json', 'w') as file:
+    json.dump(garch_params, file, indent=4)
+
 
 #printing optimal parameters
 print('GARCH model parameters')
