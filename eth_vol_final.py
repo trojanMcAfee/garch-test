@@ -66,7 +66,10 @@ print('last conditional vol ^^^')
 print(resid[-1])
 print('resid ^^^')
 print('mu***** ', mu)
-# print('mu multiplied ', mu * 10 ** )
+print('mu * 10 ** 18: ', mu * 10 ** 18)
+print('int(mu * 10 ** 18): ', int(mu * 10 ** 18))
+print('omega * 10 ** 18: ', omega * 10 ** 18)
+print('int(omega * 10 ** 18): ', int(omega * 10 ** 18))
 print('')
 
 garch_params = {
@@ -78,8 +81,8 @@ garch_params = {
     "beta": beta * 10 ** 18
 }
 
-with open('garch_params.json', 'w') as file:
-    json.dump(garch_params, file, indent=4)
+# with open('garch_params.json', 'w') as file:
+#     json.dump(garch_params, file, indent=4)
 
 
 #printing optimal parameters
