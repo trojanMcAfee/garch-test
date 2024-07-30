@@ -84,6 +84,12 @@ garch_params = {
 # with open('garch_params.json', 'w') as file:
 #     json.dump(garch_params, file, indent=4)
 
+# with open('eth_prices.txt', 'w') as file:
+#     file.write(str(prices))
+
+with open('eth_prices.json', 'w') as json_file:
+    json.dump(prices.to_list(), json_file)
+
 
 #printing optimal parameters
 print('GARCH model parameters')
